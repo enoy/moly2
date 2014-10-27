@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:p="http://www.springframework.org/schema/p" 
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context-3.0.xsd"
+    default-autowire="byName">
+
+	<!-- controller -->
+	<context:component-scan base-package="com.gary.framework.controller" />
+	
+	<!-- 调试拦截器 -->
+	<bean id="debugInterceptor" class="com.gary.framework.util.interceptor.DebugInterceptor" />
+	<!-- 公用拦截器 -->
+	<bean id="commonInterceptor" class="com.gary.framework.util.interceptor.CommonInterceptor" />
+	
+	<!-- 
+	<bean id="defaultAnnotationHandlerMapping" class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
+		<property name="order" value="1" />
+		<property name="interceptors">
+			<list>
+				<ref bean="commonInterceptor"/>
+				<ref bean="debugInterceptor"/>
+			</list>
+		</property>
+	</bean>
+	
+	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter"/>
+	 -->
+
+	<!-- 
+		生成spring的URL映射
+		org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping
+			/pathPrefix/entity/method.do
+		com.gary.framework.util.spring.ControllerClassNameHandlerMapping
+			/pathPrefix/Entity/method.do
+	-->
+	<bean class="com.gary.framework.util.spring.ControllerClassNameHandlerMapping" >
+		<property name="order" value="1" />
+		<!-- 
+		<property name="caseSensitive" value="true"/>
+		 --> 
+		<property name="pathPrefix" value="/"></property>
+		
+		<!-- 拦截器 -->
+		<property name="interceptors">
+			<list>
+				<ref bean="commonInterceptor"/>
+				<ref bean="debugInterceptor"/>
+			</list>
+		</property>
+	</bean>
+	
+
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- set the max upload size1GB -->
+		<property name="maxUploadSize">
+			<value>1073741824</value>
+		</property>
+		<property name="maxInMemorySize">
+			<value>4096</value>
+		</property>
+	</bean>
+
+	<bean id="freemarkerResolver"
+		class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+		<property name="order" value="1"></property>
+		<property name="prefix" value="" />
+		<property name="suffix" value=".ftl" />
+	    <property name="contentType" value="text/html;charset=utf-8" />
+		<property name="viewClass">
+			<!-- com.gary.framework.util.spring.CustomFreemarkerView -->
+			<value>
+				com.gary.framework.util.spring.CustomFreemarkerView
+			<!-- 
+				org.springframework.web.servlet.view.freemarker.FreeMarkerView
+			 -->
+			</value>
+		</property>
+	</bean>
+	  
+    <!-- JSON, etc.. -->
+    <!-- Eno -->
+    <bean id="xmlResolver" class="org.springframework.web.servlet.view.XmlViewResolver">
+		<property name="order" value="2" />
+		<property name="location" value="classpath:spring/views.xml"/>  
+    </bean>
+    
+	
+	<!-- 默认ViewResolver  
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="order" value="3" />
+        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+        <property name="prefix" value=""/>
+        <property name="suffix" value=".jsp"></property>
+    </bean>
+    -->
+
+	<bean id="freemarkerConfiguration" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		<property name="location" value="classpath:freemarker.properties"/>  
+	</bean>
+	
+	<bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+		<property name="defaultEncoding" value="UTF-8" />
+		<property name="templateLoaderPath" value="/"/>
+		<property name="freemarkerSettings" ref="freemarkerConfiguration"/>  
+	</bean>
+
+    <!-- Mapping exception to the handler view -->
+    <!-- org.springframework.web.servlet.handler.SimpleMappingExceptionResolver -->
+    <bean id="exceptionResolver" class="com.gary.framework.util.spring.CustomResolveException">
+    	<property name="defaultErrorView" value="500"></property>
+        <property name="exceptionMappings">
+            <props>
+		    	<prop key="com.gary.framework.util.exception.NeedLoginException">login</prop>
+		    	<prop key="org.springframework.web.multipart.MaxUploadSizeExceededException">maxUploadSize</prop>
+            </props>
+        </property>
+    </bean>
+        
+</beans>

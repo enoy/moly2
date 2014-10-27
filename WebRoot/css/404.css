@@ -1,0 +1,25 @@
+body {
+	font-size: 13px;
+	filter: progid : DXImageTransform.Microsoft.Gradient ( gradientType = 0,
+		startColorStr = #dbebfa, endColorStr = #f9fcfd );
+	margin: 0px;
+	font-family: "微软雅黑";
+	color: #000;
+}
+
+a {
+	color: #000;
+}
+
+.chart {
+	font-weight: bolder;
+	background-color: white;
+	padding: 0px;
+	border-style: none;
+}
+
+.percent {
+	text-align: center;
+	border-width: medium;
+	border-style: none;
+}

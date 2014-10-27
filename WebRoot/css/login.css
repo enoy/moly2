@@ -1,0 +1,83 @@
+@charset "utf-8";
+body{
+	margin: 0px;
+	font-family: 微软雅黑;
+}
+#main{
+	background:url(../images/login_bg.png) repeat-x;
+	margin:0px;
+}
+#login{
+	background: url(../images/login_main.png) no-repeat;
+	width: 800px;
+	height: 550px;
+	border: 0px;
+	padding: 0px;
+	margin: 0px auto;
+}
+#login_form{
+	margin:0px;
+	padding:0px;
+	color: #fff;
+	font-size: 16px;
+	font-weight: bold;
+	text-align: center;
+	position: relative;
+	left: 300px;
+	top: 197px;
+	width: 440px;
+	height: 200px;
+}
+#login_errormsg{
+	position: absolute;
+	top: 10px;
+	left: 180px;
+}
+#login_form_username{
+	position: absolute;
+	top: 40px;
+	left: 120px;
+}
+#login_form_password{
+	position: absolute;
+	top: 80px;
+	left: 120px;
+}
+#login_captcha{
+	position: absolute;
+	top: 120px;
+	left: 120px;
+}
+#login_captcha_img{
+	position: absolute;
+	top: 122px;
+	left: 270px;
+	cursor: pointer;
+	display: none;
+}
+#login_form_auto{
+	position: absolute;
+	top: 160px;
+	left: 166px;
+	font-size: 14px;
+	font-weight: normal;
+}
+#login_form_submit{
+	position: absolute;
+	top: 160px;
+	left: 260px;
+}
+.button {
+	border:none;
+	background: url(../images/bg_button_blue.gif);
+	width: 78px;
+	height: 21px;
+	color: #fff;
+}
+#footer{
+	/* background:url(../images/login_root.png) no-repeat; */
+	width: 800px;
+	height: 100px;
+	padding: 0px;
+	margin: 0px auto;
+}

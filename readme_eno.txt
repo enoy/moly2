@@ -1,4 +1,4 @@
-framework_2014-08-16.rar
+﻿framework_2014-08-16.rar
 功能也是11年那个最全，附件attachment文件夹里还有点代码模板（ssh_2011-12-07.rar）
 
 
@@ -39,3 +39,21 @@ web.xml添加：
 json:
 1.需要依赖spring-json.jar和sojo-optional.jar
 2.直接responseutil.renderjson也可以返回json
+
+-------------------------------------------------------------
+create a new repository on the command line
+
+
+touch README.md
+git init
+git add README.md
+git commit -m "first commit"
+git remote add origin https://github.com/enoy/moly2.git
+git push -u origin master
+
+
+-------------------------------------------------------------
+push an existing repository from the command line
+
+git remote add origin https://github.com/enoy/moly2.git
+git push -u origin master
